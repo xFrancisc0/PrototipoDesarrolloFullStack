@@ -14,13 +14,20 @@ namespace PrototipoDevAPI.Controllers
             _clienteService = clienteService;
         }
 
+        //LINQ
         [HttpGet]
-        public async Task<IActionResult> GetClientesPaginados(int pageNumber = 1, int pageSize = 10)
+        public async Task<IActionResult> GetClientesLINQ()
         {
-            var clientes = await _clienteService.GetClientesPaginadosConEFCoreAsync(pageNumber, pageSize);
+            var clientes = await _clienteService.GetClientesConLINQ();
             return Ok(clientes);
         }
 
-        // Otros endpoints y métodos relacionados con clientes
+        //SP
+        [HttpGet]
+        public async Task<IActionResult> GetClientesSP()
+        {
+            var clientes = await _clienteService.GetClientesConSP();
+            return Ok(clientes);
+        }
     }
 }

@@ -13,11 +13,37 @@ namespace PrototipoDevAPI.Services
             _dbContext = dbContext;
         }
 
-        public async Task<List<Cliente>> GetClientesPaginadosConEFCoreAsync(int pageNumber, int pageSize)
+        //Obtener clientes por LINQ
+        public async Task<List<Cliente>> GetClientesConLINQ()
         {
-            return await _dbContext.Clientes.ToListAsync();
+            var clientes = await _dbContext.Clientes
+                .Include(c => c.Pais) // Incluir la relación con la tabla Paises
+                .Select(c => new Cliente
+                {
+                    Id = c.Id,
+                    DNI = c.DNI,
+                    Nombre = c.Nombre,
+                    ApellidoP = c.ApellidoP,
+                    ApellidoM = c.ApellidoM,
+                    PaisId = c.PaisId,
+                    Pais = new Pais // Proyección de la entidad Pais
+                    {
+                        Id = c.Pais.Id,
+                        Nombre = c.Pais.Nombre
+                    }
+                })
+                .ToListAsync();
+
+            return clientes;
         }
 
-        // Otros métodos relacionados con clientes
+        //Obtener clientes por SP
+        public async Task<List<Cliente>> GetClientesConSP()
+        {
+            // Llamada al Stored Procedure desde EF Core
+            var clientes = await _dbContext.Clientes.FromSqlRaw("EXEC SP_GetClientesConNombrePais").ToListAsync();
+
+            return clientes;
+        }
     }
 }
