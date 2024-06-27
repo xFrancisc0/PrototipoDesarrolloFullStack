@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  sqlserver:
+    build:
+      context: ./Backend/Database
+      dockerfile: Dockerfile
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: "UnaContraseñaSegura123!"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver_vol:/var/opt/mssql
+
+volumes:
+  sqlserver_vol:
