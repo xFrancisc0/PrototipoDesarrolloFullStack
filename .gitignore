@@ -1,3 +1,5 @@
+#Paquetes de API a ignorar
 /Backend/API/PrototipoDevAPI/.vs
 /Backend/API/PrototipoDevAPI/bin
 /Backend/API/PrototipoDevAPI/obj
+/Backend/API/PrototipoDevAPI/Migrations

@@ -1,22 +1,23 @@
-﻿using PrototipoDevAPI.Data.Repositories;
-using PrototipoDevAPI.Data.Entities;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using PrototipoDevAPI.DatabaseContext;
+using PrototipoDevAPI.Entities;
 
-namespace MyApiProject.Services
+namespace PrototipoDevAPI.Services
 {
     public class ClienteService
     {
-        private readonly IClientesRepository _clienteRepository;
+        private readonly AppDbContext _dbContext;
 
-        public ClienteService(IClientesRepository clienteRepository)
+        public ClienteService(AppDbContext dbContext)
         {
-            _clienteRepository = clienteRepository;
+            _dbContext = dbContext;
         }
 
-        public Task<List<Cliente>> GetClientesPaginadosAsync(int pageNumber, int pageSize)
+        public async Task<List<Cliente>> GetClientesPaginadosConEFCoreAsync(int pageNumber, int pageSize)
         {
-            return _clienteRepository.GetClientesPaginadosAsync(pageNumber, pageSize);
+            return await _dbContext.Clientes.ToListAsync();
         }
+
+        // Otros métodos relacionados con clientes
     }
 }

@@ -1,30 +1,26 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PrototipoDevAPI.Data.Entities;
 using PrototipoDevAPI.Services;
-using PrototipoDevAPI.Data.Entities;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace PrototipoDevAPI.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/clientes")]
     public class ClientesController : ControllerBase
     {
-        private readonly ClientesController _clientesService;
+        private readonly ClienteService _clienteService;
 
-        public ClientesController(ClientesService clientesService)
+        public ClientesController(ClienteService clienteService)
         {
-            _clientesService = clientesService;
+            _clienteService = clienteService;
         }
 
-        [HttpGet("GetClientesPaginadosEF")]
-        public async Task<ActionResult<List<Cliente>>> GetClientesPaginadosEF(int pageNumber, int pageSize)
+        [HttpGet]
+        public async Task<IActionResult> GetClientesPaginados(int pageNumber = 1, int pageSize = 10)
         {
-            var clientes = await _clientesService.GetClientesPaginadosAsync(pageNumber, pageSize);
+            var clientes = await _clienteService.GetClientesPaginadosConEFCoreAsync(pageNumber, pageSize);
             return Ok(clientes);
         }
 
-        // Aquí puedes agregar otro endpoint para el stored procedure si lo deseas
+        // Otros endpoints y métodos relacionados con clientes
     }
 }

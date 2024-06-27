@@ -1,6 +1,6 @@
-﻿namespace PrototipoDevAPI.Data.Entities
+﻿namespace PrototipoDevAPI.Entities
 {
-    public class Pais
+    public class Continente
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
