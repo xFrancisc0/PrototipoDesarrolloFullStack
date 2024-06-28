@@ -1,2 +1,25 @@
-1.- Instanciar un contenedor con la imagen de mssql version latest, con password admin, puerto 1433, asignandole un volumen
-docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=admin' -p 1433:1433/tcp --name sqlserverprototipodev_container -v sqlserver_vol:/var/opt/mssql -d mcr.microsoft.com/mssql/server:latest
+Como Iniciar base de datos
+=============================
+
+
+
+1.- Importar volumen db mssql
+====================================================================
+En Windows
+===============
+Estando en el directorio 4-Docker en nuestra terminal, para importar el Volumen requerido ejecutamos:
+docker run --rm -v prototipodev_sqlserver_vol:/datos_temporales -v ${PWD}:/backup busybox tar xzf /backup/prototipodev_sqlserver_vol.tar.gz -C /datos_temporales
+===============
+
+En Linux
+===============
+Estando en el directorio 4-Docker en nuestra terminal, para importar el Volumen requerido ejecutamos:
+docker run --rm -v prototipodev_sqlserver_vol:/datos_temporales -v $(pwd):/backup busybox tar xzf /backup/prototipodev_sqlserver_vol.tar.gz -C /datos_temporales
+===============
+====================================================================
+
+
+2.- En directorio raiz, ejecutar: docker-compose up
+Para apagar base de datos: docker-compose down
+
+Acceso a DB, Querystring: Server=localhost,1433;Database=prototipodevdb;User=sa;Password=UnaContraseñaSegura123!;TrustServerCertificate=true;

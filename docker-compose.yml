@@ -11,7 +11,8 @@ services:
     ports:
       - "1433:1433"
     volumes:
-      - sqlserver_vol:/var/opt/mssql
+      - prototipodev_sqlserver_vol:/var/opt/mssql
 
 volumes:
-  sqlserver_vol:
+  prototipodev_sqlserver_vol:
+    external: true
