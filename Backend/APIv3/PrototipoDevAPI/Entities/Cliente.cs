@@ -7,6 +7,7 @@
         public string Nombre { get; set; }
         public string ApellidoP { get; set; }
         public string ApellidoM { get; set; }
+        public string Telefono { get; set; }
         public int PaisId { get; set; }
 
         // Propiedad de navegación a País
@@ -20,6 +21,7 @@
         public string ClienteNombre { get; set; }
         public string ApellidoP { get; set; }
         public string ApellidoM { get; set; }
+        public string Telefono { get; set; }
         public string PaisNombre { get; set; }
     }
 
@@ -30,6 +32,7 @@
         public string ClienteNombre { get; set; }
         public string ApellidoP { get; set; }
         public string ApellidoM { get; set; }
+        public string Telefono { get; set; }
         public string PaisNombre { get; set; }
         public int PaisId { get; set; }
 

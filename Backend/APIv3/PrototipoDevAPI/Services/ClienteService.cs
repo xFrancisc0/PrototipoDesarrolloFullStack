@@ -31,6 +31,7 @@ namespace PrototipoDevAPI.Services
                     ClienteNombre = c.Nombre,
                     ApellidoP = c.ApellidoP,
                     ApellidoM = c.ApellidoM,
+                    Telefono = c.Telefono,
                     PaisNombre = c.Pais.Nombre
                 })
                 .ToListAsync();
@@ -102,6 +103,7 @@ namespace PrototipoDevAPI.Services
                 ClienteNombre = reader["ClienteNombre"].ToString(),
                 ApellidoP = reader["ApellidoP"].ToString(),
                 ApellidoM = reader["ApellidoM"].ToString(),
+                Telefono = reader["Telefono"].ToString(),
                 PaisNombre = reader["PaisNombre"].ToString()
             };
         }
