@@ -1,7 +1,6 @@
-import 'dotenv/config';
 import { bootstrapApplication } from '@angular/platform-browser';
-import { appConfig } from './app/Base/app.config';
-import { AppComponent } from './app/Base/app.component';
+import { appConfig } from './app/app.config';
+import { AppComponent } from './app/app.component';
 
 bootstrapApplication(AppComponent, appConfig)
   .catch((err) => console.error(err));

@@ -1,18 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { ClientesService } from '../../Servicios/Clientes/clientes-service' // Ajusta la ruta según la ubicación de tu servicio
-
+import { Component } from '@angular/core';
+import { ClientesService } from '../../services/clientes.service'
 @Component({
   selector: 'app-clientes',
+  standalone: true,
+  imports: [],
   templateUrl: './clientes.component.html',
-  styleUrls: ['./clientes.component.css']
+  styleUrl: './clientes.component.css'
 })
-export class ClientesComponent implements OnInit {
-
+export class ClientesComponent {
   clientesLinq: any[] = [];
   clientesSP: any[] = [];
 
   constructor(private clientesService: ClientesService) { }
 
+  
   ngOnInit(): void {
     this.obtenerClientesLinq();
     this.obtenerClientesSP();
