@@ -25,6 +25,18 @@ public class Startup
 
         // Otros servicios y configuraciones
         services.AddControllers();
+
+        services.AddCors(options =>
+        {
+            options.AddDefaultPolicy(builder =>
+            {
+                builder.WithOrigins("http://localhost:4200") // Reemplaza con tu URL de Angular
+                       .AllowAnyHeader()
+                       .AllowAnyMethod();
+            });
+        });
+
+        services.AddControllers().AddJsonOptions(opts => opts.JsonSerializerOptions.PropertyNamingPolicy = null);
     }
 
     // Este método es llamado por el runtime. Aquí se configura el pipeline de solicitud HTTP.
@@ -43,7 +55,7 @@ public class Startup
         app.UseHttpsRedirection(); // Redireccionamiento HTTP a HTTPS
         app.UseRouting(); // Habilitar enrutamiento
 
-        app.UseAuthorization(); // Middleware de autorización
+        app.UseCors(builder => builder.WithOrigins("*"));
 
         app.UseEndpoints(endpoints =>
         {
