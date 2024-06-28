@@ -22,75 +22,95 @@ namespace PrototipoDevAPI.Services
         //Obtener clientes por LINQ
         public async Task<Resultado> GetClientesConLINQ()
         {
-            var response = await _dbContext.Clientes
-                .Include(c => c.Pais) // Incluir la relación con la tabla Paises
-                .Select(c => new ClienteOutput
+            try { 
+                var response = await _dbContext.Clientes
+                    .Include(c => c.Pais) // Incluir la relación con la tabla Paises
+                    .Select(c => new ClienteOutput
+                    {
+                        Id = c.Id,
+                        DNI = c.DNI,
+                        ClienteNombre = c.Nombre,
+                        ApellidoP = c.ApellidoP,
+                        ApellidoM = c.ApellidoM,
+                        Telefono = c.Telefono,
+                        PaisNombre = c.Pais.Nombre
+                    })
+                    .ToListAsync();
+
+                var resultado = new Resultado();
+
+                if (response != null && response.Count > 0)
                 {
-                    Id = c.Id,
-                    DNI = c.DNI,
-                    ClienteNombre = c.Nombre,
-                    ApellidoP = c.ApellidoP,
-                    ApellidoM = c.ApellidoM,
-                    Telefono = c.Telefono,
-                    PaisNombre = c.Pais.Nombre
-                })
-                .ToListAsync();
+                    resultado.ok = true;
+                    resultado.id = 0;
+                    resultado.data = new { datos = response, total = 0 }; ;
+                    resultado.mensaje = "OK";
+                }
+                else
+                {
+                    resultado.ok = false;
+                    resultado.id = 0;
+                    resultado.mensaje = "No hay resultados disponibles.";
+                }
 
-            var resultado = new Resultado();
+                return resultado;
 
-            if (response != null && response.Count > 0)
-            {
-                resultado.ok = true;
-                resultado.id = 0;
-                resultado.data = new { datos = response, total = 0 }; ;
-                resultado.mensaje = "OK";
-            }
-            else
-            {
+            }catch(Exception ex){
+
+                var resultado = new Resultado();
                 resultado.ok = false;
                 resultado.id = 0;
-                resultado.mensaje = "No hay resultados disponibles.";
+                resultado.mensaje = "Hubo un error: "+ex.ToString();
+                return resultado;
             }
-
-            return resultado;
         }
 
         public async Task<Resultado> GetClientesConSP()
         {
-            using (SqlConnection sql = new SqlConnection(_connectionString))
+            try
             {
-                using (SqlCommand cmd = new SqlCommand("SP_GetClientesConNombrePais", sql))
+                using (SqlConnection sql = new SqlConnection(_connectionString))
                 {
-                    cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                    var response = new List<ClienteOutput>();
-                    await sql.OpenAsync();
-
-                    using (var reader = await cmd.ExecuteReaderAsync())
+                    using (SqlCommand cmd = new SqlCommand("SP_GetClientesConNombrePais", sql))
                     {
-                        while (await reader.ReadAsync())
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        var response = new List<ClienteOutput>();
+                        await sql.OpenAsync();
+
+                        using (var reader = await cmd.ExecuteReaderAsync())
                         {
-                            response.Add(MapToValue(reader));
+                            while (await reader.ReadAsync())
+                            {
+                                response.Add(MapToValue(reader));
+                            }
                         }
-                    }
 
-                    var resultado = new Resultado();
+                        var resultado = new Resultado();
 
-                    if (response != null && response.Count > 0)
-                    {
-                        resultado.ok = true;
-                        resultado.id = 0;
-                        resultado.data = new { datos = response, total = 0 }; ;
-                        resultado.mensaje = "OK";
-                    }
-                    else
-                    {
-                        resultado.ok = false;
-                        resultado.id = 0;
-                        resultado.mensaje = "No hay resultados disponibles."; 
-                    }
+                        if (response != null && response.Count > 0)
+                        {
+                            resultado.ok = true;
+                            resultado.id = 0;
+                            resultado.data = new { datos = response, total = 0 }; ;
+                            resultado.mensaje = "OK";
+                        }
+                        else
+                        {
+                            resultado.ok = false;
+                            resultado.id = 0;
+                            resultado.mensaje = "No hay resultados disponibles.";
+                        }
 
-                    return resultado;
+                        return resultado;
+                    }
                 }
+            }catch (Exception ex){
+
+                var resultado = new Resultado();
+                resultado.ok = false;
+                resultado.id = 0;
+                resultado.mensaje = "Hubo un error" + ex.ToString();
+                return resultado;
             }
         }
 
