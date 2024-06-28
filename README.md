@@ -1,9 +1,12 @@
 #Pasos para probarlo
 
-### 1. Database:- Backend/DB, hay algunas instrucciones para instanciar la base de datos de mssql en docker de una manera muy rápida.
+### 1. Database:- Backend/DB
+Hay algunas instrucciones para instanciar la base de datos de mssql en docker de una manera muy rápida.
 
-### 2. API C# .NET - Backend/API, hay que ejecutar esta API en Visual Studio 2022. Los paquetes que no esten se pueden bajar como NuGet.
-### 3. WebApp Angular - Frontend/PrototipoDevAngularAppv2/FrontendAngular, hay que ejecutarlo con vscode, ng serve. Los paquetes que no esten: npm i.
+### 2. API C# .NET - Backend/API
+Hay que ejecutar esta API en Visual Studio 2022. Los paquetes que no esten se pueden bajar como NuGet.
+### 3. WebApp Angular - Frontend/PrototipoDevAngularAppv2/FrontendAngular
+Hay que ejecutarlo con Visual Studio Code, ng serve. Los paquetes que no esten: npm i.
 
 ### 4. Ejecución y observaciones de la aplicación
 Para entrar a la aplicacion Angular: http://localhost:4200.
