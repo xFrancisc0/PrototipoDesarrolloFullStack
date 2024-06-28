@@ -3,3 +3,14 @@
 /Backend/API/PrototipoDevAPI/bin
 /Backend/API/PrototipoDevAPI/obj
 /Backend/API/PrototipoDevAPI/Migrations
+/Backend/APIv2/PrototipoDevAPI/.vs
+/Backend/APIv2/PrototipoDevAPI/bin
+/Backend/APIv2/PrototipoDevAPI/obj
+/Backend/APIv2/PrototipoDevAPI/Migrations
+/Backend/APIv2/PrototipoDevAPI/wwwroot
+/Backend/APIv3/PrototipoDevAPI/.vs
+/Backend/APIv3/PrototipoDevAPI/bin
+/Backend/APIv3/PrototipoDevAPI/obj
+/Backend/APIv3/PrototipoDevAPI/Migrations
+/Backend/APIv3/PrototipoDevAPI/wwwroot
+/Backend/APIv3/PrototipoDevAPI/Views

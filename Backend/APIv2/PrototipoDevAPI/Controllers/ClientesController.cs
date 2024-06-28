@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PrototipoDevAPI.Entities;
 using PrototipoDevAPI.Services;
 
 namespace PrototipoDevAPI.Controllers

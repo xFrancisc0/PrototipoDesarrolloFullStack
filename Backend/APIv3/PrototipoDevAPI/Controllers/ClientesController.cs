@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using PrototipoDevAPI.Entities;
+using Microsoft.EntityFrameworkCore;
+using PrototipoDevAPI.DatabaseContext;
 using PrototipoDevAPI.Services;
 
 namespace PrototipoDevAPI.Controllers
@@ -8,10 +9,12 @@ namespace PrototipoDevAPI.Controllers
     [Route("api/clientes")]
     public class ClientesController : ControllerBase
     {
+        private readonly ILogger<HomeController> _logger;
         private readonly ClienteService _clienteService;
 
-        public ClientesController(ClienteService clienteService)
+        public ClientesController(ILogger<HomeController> logger, ClienteService clienteService)
         {
+            _logger = logger;
             _clienteService = clienteService;
         }
 
